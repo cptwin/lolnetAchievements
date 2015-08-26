@@ -15,11 +15,14 @@
  */
 package nz.co.lolnet.lolnetachievements;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nz.co.lolnet.lolnetachievements.Utility.Config;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -30,18 +33,55 @@ public class LolnetAchievements extends JavaPlugin {
     public static final Logger logger = Logger.getLogger("Minecraft");
     public static LolnetAchievements plugin;
     
+    private static ExecutorService threadPool;
+    
     @Override
     public void onEnable() {
         plugin = this;
+        threadPool = Executors.newFixedThreadPool(4);
         Config.initConfig();
+        getServer().getPluginManager().registerEvents(new nz.co.lolnet.lolnetachievements.Listeners.EventListener(), this);
         PluginDescriptionFile pdfFile = this.getDescription();
         logger.log(Level.INFO, "{0} Version {1} Has Been Enabled!", new Object[]{pdfFile.getName(), pdfFile.getVersion()});
     }
     
     @Override
     public void onDisable() {
+        threadPool.shutdown();
         PluginDescriptionFile pdfFile = this.getDescription();
         logger.log(Level.INFO, "{0} Version {1} Has Been Disabled!", new Object[]{pdfFile.getName(), pdfFile.getVersion()});
+    }
+    
+    public static ExecutorService getThreadPool()
+    {
+        return threadPool;
+    }
+    
+    public static String convertAchievementName(String input)
+    {
+        if(input.contains("_"))
+        {
+            for(int i = 0; i < Config.getAchievementConversionList().size(); i++)
+            {
+                JSONObject object = (JSONObject) Config.getAchievementConversionList().get(i);
+                if(input.equals(object.get("pluginName")))
+                {
+                    return object.get("storedName").toString();
+                }
+            }
+        }
+        else
+        {
+            for(int i = 0; i < Config.getAchievementConversionList().size(); i++)
+            {
+                JSONObject object = (JSONObject) Config.getAchievementConversionList().get(i);
+                if(input.equals(object.get("storedName")))
+                {
+                    return object.get("pluginName").toString();
+                }
+            }
+        }
+        return input;
     }
     
 }
