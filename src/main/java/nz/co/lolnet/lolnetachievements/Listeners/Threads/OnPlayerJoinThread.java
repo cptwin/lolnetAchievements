@@ -15,6 +15,8 @@
  */
 package nz.co.lolnet.lolnetachievements.Listeners.Threads;
 
+import static nz.co.lolnet.lolnetachievements.Achievements.Achievements.addCloudAchievementsToPlayer;
+import static nz.co.lolnet.lolnetachievements.Achievements.Achievements.addPlayerAchievementsToCloud;
 import nz.co.lolnet.lolnetachievements.LolnetAchievements;
 import org.bukkit.Achievement;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -41,14 +43,8 @@ public class OnPlayerJoinThread implements Runnable {
     @Override
     public void run() {
         System.out.println("Playername: " + event.getPlayer().getName());
-        for(Achievement achievement : Achievement.values())
-        {
-            if(event.getPlayer().hasAchievement(achievement))
-            {
-                System.out.println(event.getPlayer().getName() + " has achievement " + achievement.name());
-                System.out.println(event.getPlayer().getName() + " has converted name achievement " + LolnetAchievements.convertAchievementName(achievement.name()));
-            }
-        }
+        addCloudAchievementsToPlayer(event.getPlayer());
+        addPlayerAchievementsToCloud(event.getPlayer());
     }
     
 }
