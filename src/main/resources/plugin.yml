@@ -1,0 +1,6 @@
+name: lolnetAchievements
+main: nz.co.lolnet.lolnetachievements.LolnetAchievements
+version: ${project.version}
+description: lolnet Achievement Plugin
+authors: [CptWin]
+website: https://www.lolnet.co.nz
