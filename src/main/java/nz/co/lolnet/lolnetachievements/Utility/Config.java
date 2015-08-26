@@ -37,6 +37,9 @@ public class Config {
     
     public static void initConfig()
     {
+        LolnetAchievements.plugin.saveDefaultConfig();
+        LolnetAchievements.plugin.getConfig().options().copyDefaults(true);
+        LolnetAchievements.plugin.saveConfig();
         FileConfiguration configFile = LolnetAchievements.plugin.getConfig();
         SERVER_NAME = configFile.getString(SERVER_NAME_CONFIG, SERVER_NAME_DEFAULT);
         SERVER_HASH = configFile.getString(SERVER_HASH_CONFIG, SERVER_HASH_DEFAULT);
@@ -44,8 +47,7 @@ public class Config {
         {
             LolnetAchievements.logger.log(Level.SEVERE, "Please change the server name in the lolnet Achievements config.yml!");
             LolnetAchievements.plugin.onDisable();
-        }
-        if(!SERVER_HASH.startsWith("$2a"))
+        } else if(!SERVER_HASH.startsWith("$2a"))
         {
             SERVER_HASH = BCrypt.hashpw(SERVER_NAME, BCrypt.gensalt(BCRYPT_NUMBER_OF_ROUNDS));
             configFile.set(SERVER_HASH_CONFIG, SERVER_HASH);
