@@ -15,10 +15,33 @@
  */
 package nz.co.lolnet.lolnetachievements;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import nz.co.lolnet.lolnetachievements.Utility.Config;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.java.JavaPlugin;
+
 /**
  *
  * @author CptWin
  */
-public class LolnetAchievements {
+public class LolnetAchievements extends JavaPlugin {
+    
+    public static final Logger logger = Logger.getLogger("Minecraft");
+    public static LolnetAchievements plugin;
+    
+    @Override
+    public void onEnable() {
+        plugin = this;
+        Config.initConfig();
+        PluginDescriptionFile pdfFile = this.getDescription();
+        logger.log(Level.INFO, "{0} Version {1} Has Been Enabled!", new Object[]{pdfFile.getName(), pdfFile.getVersion()});
+    }
+    
+    @Override
+    public void onDisable() {
+        PluginDescriptionFile pdfFile = this.getDescription();
+        logger.log(Level.INFO, "{0} Version {1} Has Been Disabled!", new Object[]{pdfFile.getName(), pdfFile.getVersion()});
+    }
     
 }
