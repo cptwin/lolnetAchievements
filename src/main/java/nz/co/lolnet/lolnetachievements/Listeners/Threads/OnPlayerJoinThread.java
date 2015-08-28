@@ -42,7 +42,6 @@ public class OnPlayerJoinThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Playername: " + event.getPlayer().getName());
         addCloudAchievementsToPlayer(event.getPlayer());
         addPlayerAchievementsToCloud(event.getPlayer());
     }
