@@ -15,20 +15,19 @@
  */
 package nz.co.lolnet.lolnetachievements.Listeners.Threads;
 
-import static nz.co.lolnet.lolnetachievements.Achievements.Achievements.addCloudAchievementsToPlayer;
 import static nz.co.lolnet.lolnetachievements.Achievements.Achievements.addPlayerAchievementsToCloud;
 import nz.co.lolnet.lolnetachievements.LolnetAchievements;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
 /**
  *
  * @author CptWin
  */
-public class OnPlayerJoinThread implements Runnable {
+public class OnPlayerAchievementAwardedThread implements Runnable {
     
-    private final PlayerJoinEvent event;
+    private final PlayerAchievementAwardedEvent event;
     
-    public OnPlayerJoinThread(PlayerJoinEvent event)
+    public OnPlayerAchievementAwardedThread(PlayerAchievementAwardedEvent event)
     {
         this.event = event;
         start();
@@ -41,7 +40,6 @@ public class OnPlayerJoinThread implements Runnable {
 
     @Override
     public void run() {
-        addCloudAchievementsToPlayer(event.getPlayer());
         addPlayerAchievementsToCloud(event.getPlayer());
     }
     

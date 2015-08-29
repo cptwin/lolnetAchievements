@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nz.co.lolnet</groupId>
     <artifactId>lolnetAchievements</artifactId>
-    <version>0.1_ALPHA</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <build>
         <plugins>

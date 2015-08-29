@@ -15,10 +15,12 @@
  */
 package nz.co.lolnet.lolnetachievements.Listeners;
 
+import nz.co.lolnet.lolnetachievements.Listeners.Threads.OnPlayerAchievementAwardedThread;
 import nz.co.lolnet.lolnetachievements.Listeners.Threads.OnPlayerJoinThread;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
 /**
  *
@@ -29,6 +31,11 @@ public class EventListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         OnPlayerJoinThread onPlayerJoinThread = new OnPlayerJoinThread(event);
+    }
+    
+    @EventHandler
+    public void onPlayerAchievementAwarded(PlayerAchievementAwardedEvent event) {
+        OnPlayerAchievementAwardedThread onPlayerAchievementAwardedThread = new OnPlayerAchievementAwardedThread(event);
     }
     
 }
