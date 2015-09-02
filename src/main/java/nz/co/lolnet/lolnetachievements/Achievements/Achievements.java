@@ -81,22 +81,30 @@ public class Achievements {
         data.put("achievementName", LolnetAchievements.convertAchievementName(achievementname));
         data.put("playerName", playername.toLowerCase());
         
+        if(Config.DEBUG_MODE)
+        {
+            System.out.println(data.toJSONString());
+        }
+        
         URL url = new URL("https://api-lnetachievements.rhcloud.com/api/achievements");
         URLConnection conn = url.openConnection();
         conn.setDoOutput(true);
         conn.setConnectTimeout(API_TIMEOUT);
         OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-        wr.write(data.toString());
+        wr.write(data.toJSONString());
         wr.flush();
         wr.close();
 
         // Get the response
-        /*BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         String temp = rd.readLine();
-        System.out.println(temp);
+        if(Config.DEBUG_MODE)
+        {
+            System.out.println(temp);
+        }
         //JSONObject object = (JSONObject) new JSONParser().parse(temp);
         //System.out.println("");
-        rd.close();*/
+        rd.close();
     }
 
     private static JSONArray getPlayerAchievements(String playername) throws MalformedURLException, IOException, ParseException {

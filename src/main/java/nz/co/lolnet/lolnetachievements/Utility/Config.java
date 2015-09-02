@@ -46,6 +46,7 @@ public class Config {
     private static JSONArray ACHIEVEMENT_CONVERSION_LIST;
 
     public static final int API_TIMEOUT = 10000;
+    public static final boolean DEBUG_MODE = false;
 
     public static void initConfig() {
         LolnetAchievements.plugin.saveDefaultConfig();
